@@ -33,32 +33,26 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
         binding.idShowRepos.layoutManager = LinearLayoutManager(this)
         binding.idShowRepos.adapter = homeAdapter
-        fillReposInList()
-
-
+        viewModel.getRepos(pageCount)
+        viewModel.repo.observe(this) { value ->
+            if (null != value) {
+                homeAdapter.setReposItems(value)
+            }
+        }
 
             binding.idShowRepos.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(dy > 0) {
                     if(!binding.idShowRepos.canScrollVertically(1)) {
                         pageCount++
-                        fillReposInList()
+
                     }
                 }
             }
         })
     }
 
-    fun fillReposInList() {
-        viewModel.getRepos(pageCount)
-        viewModel.repo.observe(this) {
-                value ->
-            if(null != value) {
-                homeAdapter.setReposItems(value)
-            }
-        }
-    }
-
+    
     fun onRepoClickCallPull(pullsLink: String) {
         Toast.makeText(this, "List item clicked!!!", Toast.LENGTH_LONG).show()
     }

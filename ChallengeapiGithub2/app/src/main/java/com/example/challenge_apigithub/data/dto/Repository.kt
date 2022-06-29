@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class Repository(
     @SerializedName("description")
-    val description: Long,
+    val description: String,
     @SerializedName("id")
     val id: Long,
     @SerializedName("node_id")
-    val nodeId: Long,
+    val nodeId: String,
     @SerializedName("name")
-    val name: Long,
+    val name: String,
     @SerializedName("full_name")
-    val fullName: Long,
+    val fullName: String,
     @SerializedName("pulls_url")
     val pullsUrl: String,
     @SerializedName("stargazers_count")
