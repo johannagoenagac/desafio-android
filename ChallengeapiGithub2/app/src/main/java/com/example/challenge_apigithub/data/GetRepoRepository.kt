@@ -1,11 +1,11 @@
 package com.example.challenge_apigithub.data
 
-class GetRepoRepository (private val getReposRepository: GetRepoRepository) {
+class GetRepoRepository (private val getRepoDataSource: GetRepoDataSource) {
     fun getRepo(page: Int, listener: SearchResponseListener){
-        this.getReposRepository.getRepo(page, listener)
+        this.getRepoDataSource.getRepos(page, listener)
     }
 
-    fun getPull(owner: String, respository: String, listener: PullResponseListener) {
-        this.getReposRepository.getPull(owner, respository, listener)
+    fun getPull(owner: String, repository: String, listener: PullResponseListener) {
+        this.getRepoDataSource.getPulls(owner, repository, listener)
     }
 }

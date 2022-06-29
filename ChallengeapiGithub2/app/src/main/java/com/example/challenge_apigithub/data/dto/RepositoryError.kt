@@ -7,5 +7,4 @@ data class RepositoryError (
     @SerializedName("message")
     val message: String,
     @SerializedName("errors")
-    val errors: Error?
-        )
+    val errors: Error?)

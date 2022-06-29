@@ -2,17 +2,17 @@ package com.example.challenge_apigithub.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Repository (
+data class Repository(
     @SerializedName("description")
-    val description: String,
+    val description: Long,
     @SerializedName("id")
     val id: Long,
     @SerializedName("node_id")
-    val nodeId: String,
+    val nodeId: Long,
     @SerializedName("name")
-    val name: String,
+    val name: Long,
     @SerializedName("full_name")
-    val fullName: String,
+    val fullName: Long,
     @SerializedName("pulls_url")
     val pullsUrl: String,
     @SerializedName("stargazers_count")
