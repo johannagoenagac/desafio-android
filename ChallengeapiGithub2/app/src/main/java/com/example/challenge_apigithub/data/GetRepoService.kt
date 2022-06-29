@@ -14,6 +14,6 @@ interface GetRepoService {
     fun getRepo(@Query("page") page: Int): Call<SearchResponse>
 
     @GET("repos/{owner}/{repository}/pulls")
-    fun getPull(@Path("owner") owner: String, @Path("repository") repository: String): Call<PullResponse>
+    fun getPull(@Path("owner") owner: String, @Path("repository") repository: String): Call<List<PullResponse>>
 
 }

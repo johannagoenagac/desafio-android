@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.Home">
+    tools:context=".views.PullList">
 
     <!--linear layout for displaying
         our recycler view-->
@@ -17,7 +17,7 @@
             and we are making nested scroll for our
             recycler view as false-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/idShowRepos"
+            android:id="@+id/idShowPull"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -25,7 +25,7 @@
 
         <!--we are adding progress bar
             for the purpose of loading-->
-        <ProgressBar
+       <ProgressBar
             android:id="@+id/idPBLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

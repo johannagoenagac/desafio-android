@@ -20,6 +20,11 @@
             android:exported="false">
 
         </activity>
+        <activity
+            android:name=".views.PullList"
+            android:exported="false">
+
+        </activity>
 
         <activity
             android:name=".views.Splash"

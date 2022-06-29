@@ -1,20 +1,21 @@
 package com.example.challenge_apigithub.views
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import com.example.challenge_apigithub.R
-import com.example.challenge_apigithub.databinding.ActivityHomeBinding
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.challenge_apigithub.databinding.ActivityHomeBinding
 
 
 class Home : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private var pageCount = 1
+    private var loading = true
 
     private val viewModel: HomeViewModel by viewModels(
         factoryProducer = { HomeModelFactory()
@@ -22,10 +23,14 @@ class Home : AppCompatActivity() {
     )
 
     private val homeAdapter = HomeAdapter(object: HomeAdapter.HomeListener {
-        override fun repoSelected(repoLink: String) {
-            onRepoClickCallPull(repoLink)
+        override fun repoSelected(owner: String, repository: String) {
+            onRepoClickCallPull(owner, repository)
         }
     })
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,24 +43,36 @@ class Home : AppCompatActivity() {
             if (null != value) {
                 homeAdapter.setReposItems(value)
             }
+            this.setTitle("Home")
         }
 
             binding.idShowRepos.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(dy > 0) {
-                    if(!binding.idShowRepos.canScrollVertically(1)) {
-                        pageCount++
-
+                    if(loading){
+                        if(!binding.idShowRepos.canScrollVertically(1)) {
+                            binding.idPBLoading.isVisible = true
+                            pageCount++
+                            binding.idPBLoading.isVisible = false
+                        }
                     }
                 }
+
             }
         })
+
     }
 
-    
-    fun onRepoClickCallPull(pullsLink: String) {
-        Toast.makeText(this, "List item clicked!!!", Toast.LENGTH_LONG).show()
+    fun onRepoClickCallPull(owner: String, repository: String) {
+        val intent = Intent(this, PullList::class.java).apply {
+            putExtra("owner", owner)
+            putExtra("repository", repository)
+        }
+        startActivity(intent)
     }
 }
+
+
+
 
 

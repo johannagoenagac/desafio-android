@@ -46,7 +46,7 @@ class GetRepoDataSource {
         })
     }
 
-    fun getPulls(owner: String, repository: String, listener: PullResponseListener) {
+    /*fun getPulls(owner: String, repository: String, listener: PullResponseListener) {
         val service = RetrofitService.instance.create(GetRepoService::class.java).getPull(owner, repository)
 
         service.enqueue(object: Callback<PullResponse> {
@@ -54,12 +54,13 @@ class GetRepoDataSource {
                 val responseResult = response.body()
                 if (response.isSuccessful && null != responseResult) {
                     listener.onPullResponse(
-                        PullResponse(
+                       /* PullResponse(
                             state = responseResult.state,
                             title = responseResult.title,
                             body = responseResult.body,
                             user = responseResult.user
-                        )
+                        )*/
+                    responseResult
                     )
                 } else {
                     listener.onError(
@@ -72,6 +73,38 @@ class GetRepoDataSource {
             }
 
             override fun onFailure(call: Call<PullResponse>, t: Throwable) {
+                listener.onError(
+                    RepositoryError(
+                        message = t.message ?: "Unexpected error",
+                        errors = null
+                    )
+                )
+            }
+
+        })
+    }*/
+
+    fun getPulls(owner: String, repository: String, listener: PullResponseListener) {
+        val service = RetrofitService.instance.create(GetRepoService::class.java).getPull(owner, repository)
+
+        service.enqueue(object: Callback<List<PullResponse>> {
+            override fun onResponse(call: Call<List<PullResponse>>, response: Response<List<PullResponse>>) {
+                val responseResult = response.body()
+                if (response.isSuccessful && null != responseResult) {
+                    listener.onPullResponse(
+                        responseResult
+                    )
+                } else {
+                    listener.onError(
+                        RepositoryError(
+                            message = "Problems reaching destination",
+                            errors = null
+                        )
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<List<PullResponse>>, t: Throwable) {
                 listener.onError(
                     RepositoryError(
                         message = t.message ?: "Unexpected error",

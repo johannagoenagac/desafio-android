@@ -9,12 +9,12 @@ import com.example.challenge_apigithub.data.utils.RepoHomologación
 import com.bumptech.glide.Glide
 
 
-class HomeAdapter (private val homeListener : HomeListener):
+class HomeAdapter (private val listener: HomeListener):
 RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
 
     private var repos = ArrayList<Repository>()
     interface HomeListener{
-        fun repoSelected(repoLink: String)
+        fun repoSelected(owner: String, repository: String)
     }
 
     fun setReposItems(newRepoItems: List<Repository>) {
@@ -27,6 +27,10 @@ RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = HomeItemBinding.inflate(layoutInflater,parent, false)
         return HomeViewHolder(binding)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
@@ -42,15 +46,17 @@ RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(repo : Repository) {
             this.binding.hiddenRepoLink.text = repo.pullsUrl
-            this.binding.idDescription.text = repo.description.toString()
-            this.binding.idRepoName.text = repo.name.toString()
+            this.binding.idDescription.text = repo.description
+            this.binding.idRepoName.text = repo.name
             this.binding.idFork.text = repo.forksCount.toString()
             this.binding.idStars.text = repo.stargazersCount.toString()
             this.binding.userName.text = repo.owner.login
             Glide.with(binding.root).load(repo.owner.avatarUrl).into(this.binding.idImgUser)
             this.binding.root.setOnClickListener {
-                homeListener.repoSelected(this.binding.hiddenRepoLink.text.toString())
+                listener.repoSelected(repo.owner.login, repo.name)
+            }
             }
         }
     }
-}
+
+
