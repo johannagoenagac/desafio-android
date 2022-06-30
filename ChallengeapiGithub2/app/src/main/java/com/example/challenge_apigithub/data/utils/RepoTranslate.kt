@@ -2,9 +2,9 @@ package com.example.challenge_apigithub.data.utils
 
 import com.example.challenge_apigithub.data.dto.Repository
 
-object RepoHomologación {
+object RepoTranslate {
 
-    fun homologarRepoToRepository(repoList: List<Repository>): ArrayList<Repository> {
+    fun translateRepoToRepository(repoList: List<Repository>): ArrayList<Repository> {
         val repoItemList = ArrayList<Repository>()
         repoList.forEach {
             repoItemList.add(

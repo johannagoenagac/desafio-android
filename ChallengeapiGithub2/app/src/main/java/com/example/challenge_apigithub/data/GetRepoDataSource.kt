@@ -46,43 +46,6 @@ class GetRepoDataSource {
         })
     }
 
-    /*fun getPulls(owner: String, repository: String, listener: PullResponseListener) {
-        val service = RetrofitService.instance.create(GetRepoService::class.java).getPull(owner, repository)
-
-        service.enqueue(object: Callback<PullResponse> {
-            override fun onResponse(call: Call<PullResponse>, response: Response<PullResponse>) {
-                val responseResult = response.body()
-                if (response.isSuccessful && null != responseResult) {
-                    listener.onPullResponse(
-                       /* PullResponse(
-                            state = responseResult.state,
-                            title = responseResult.title,
-                            body = responseResult.body,
-                            user = responseResult.user
-                        )*/
-                    responseResult
-                    )
-                } else {
-                    listener.onError(
-                        RepositoryError(
-                            message = "Problems reaching destination",
-                            errors = null
-                        )
-                    )
-                }
-            }
-
-            override fun onFailure(call: Call<PullResponse>, t: Throwable) {
-                listener.onError(
-                    RepositoryError(
-                        message = t.message ?: "Unexpected error",
-                        errors = null
-                    )
-                )
-            }
-
-        })
-    }*/
 
     fun getPulls(owner: String, repository: String, listener: PullResponseListener) {
         val service = RetrofitService.instance.create(GetRepoService::class.java).getPull(owner, repository)

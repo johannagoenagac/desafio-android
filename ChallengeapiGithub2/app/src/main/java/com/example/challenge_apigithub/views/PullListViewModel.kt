@@ -20,7 +20,7 @@ class PullListViewModel (private val repository: GetRepoRepository)
         repository.getPull(owner, pullRepository, object: PullResponseListener {
 
             override fun onPullResponse(response: List<PullResponse>?) {
-                pull.value = response
+                response.also { pull.value = it }
             }
 
             override fun onError(repositoryError: RepositoryError) {

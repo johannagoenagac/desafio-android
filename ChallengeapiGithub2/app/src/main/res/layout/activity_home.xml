@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,22 +13,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--recycler view for displaying our list of data
-            and we are making nested scroll for our
-            recycler view as false-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idShowRepos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:nestedScrollingEnabled="false" />
+            android:layout_height="match_parent"/>
 
-        <!--we are adding progress bar
-            for the purpose of loading-->
         <ProgressBar
             android:id="@+id/idPBLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

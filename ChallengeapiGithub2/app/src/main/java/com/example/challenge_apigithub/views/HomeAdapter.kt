@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.challenge_apigithub.databinding.HomeItemBinding
 import com.example.challenge_apigithub.data.dto.Repository
-import com.example.challenge_apigithub.data.utils.RepoHomologación
+import com.example.challenge_apigithub.data.utils.RepoTranslate
 import com.bumptech.glide.Glide
 
 
@@ -18,7 +18,7 @@ RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
     }
 
     fun setReposItems(newRepoItems: List<Repository>) {
-        this.repos.addAll(RepoHomologación.homologarRepoToRepository(newRepoItems))
+        this.repos.addAll(RepoTranslate.translateRepoToRepository(newRepoItems))
         this.notifyDataSetChanged()
     }
 
@@ -27,10 +27,6 @@ RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = HomeItemBinding.inflate(layoutInflater,parent, false)
         return HomeViewHolder(binding)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {

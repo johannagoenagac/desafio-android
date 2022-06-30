@@ -2,7 +2,6 @@ package com.example.challenge_apigithub.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,7 +14,6 @@ class Home : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private var pageCount = 1
-    private var loading = true
 
     private val viewModel: HomeViewModel by viewModels(
         factoryProducer = { HomeModelFactory()
@@ -29,40 +27,38 @@ class Home : AppCompatActivity() {
     })
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.idShowRepos.layoutManager = LinearLayoutManager(this)
         binding.idShowRepos.adapter = homeAdapter
+        fillReposInList()
+
+        binding.idShowRepos.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(dy > 0) {
+                    if(!binding.idShowRepos.canScrollVertically(1)) {
+                        pageCount++
+                        fillReposInList()
+                    }
+                }
+            }
+        })
+    }
+
+
+    fun fillReposInList() {
+        binding.idPBLoading.isVisible = true
         viewModel.getRepos(pageCount)
         viewModel.repo.observe(this) { value ->
             if (null != value) {
                 homeAdapter.setReposItems(value)
+                binding.idPBLoading.isVisible = false
             }
-            this.setTitle("Home")
         }
 
-            binding.idShowRepos.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(dy > 0) {
-                    if(loading){
-                        if(!binding.idShowRepos.canScrollVertically(1)) {
-                            binding.idPBLoading.isVisible = true
-                            pageCount++
-                            binding.idPBLoading.isVisible = false
-                        }
-                    }
-                }
-
-            }
-        })
-
     }
-
     fun onRepoClickCallPull(owner: String, repository: String) {
         val intent = Intent(this, PullList::class.java).apply {
             putExtra("owner", owner)
@@ -70,8 +66,9 @@ class Home : AppCompatActivity() {
         }
         startActivity(intent)
     }
-}
 
+
+}
 
 
 
