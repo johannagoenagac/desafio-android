@@ -19,13 +19,11 @@ class Home : AppCompatActivity() {
         factoryProducer = { HomeModelFactory()
         }
     )
-
     private val homeAdapter = HomeAdapter(object: HomeAdapter.HomeListener {
         override fun repoSelected(owner: String, repository: String) {
             onRepoClickCallPull(owner, repository)
         }
     })
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,32 +31,32 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
         binding.idShowRepos.layoutManager = LinearLayoutManager(this)
         binding.idShowRepos.adapter = homeAdapter
+        this.title = "Home"
         fillReposInList()
 
         binding.idShowRepos.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(dy > 0) {
-                    if(!binding.idShowRepos.canScrollVertically(1)) {
-                        pageCount++
-                        fillReposInList()
-                    }
+                        if (!binding.idShowRepos.canScrollVertically(1)) {
+                            pageCount++
+                            fillReposInList()
+                        }
                 }
             }
         })
     }
 
-
     fun fillReposInList() {
-        binding.idPBLoading.isVisible = true
+        binding.idPBLoadingHome.isVisible = true
         viewModel.getRepos(pageCount)
         viewModel.repo.observe(this) { value ->
             if (null != value) {
                 homeAdapter.setReposItems(value)
-                binding.idPBLoading.isVisible = false
+               binding.idPBLoadingHome.isVisible = false
             }
         }
-
     }
+
     fun onRepoClickCallPull(owner: String, repository: String) {
         val intent = Intent(this, PullList::class.java).apply {
             putExtra("owner", owner)

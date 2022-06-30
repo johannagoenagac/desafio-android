@@ -34,12 +34,13 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text=""
-                android:textColor="@color/purple_500"
+                android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <!--Textview for displaying our Course Duration-->
             <TextView
+                android:maxLength="100"
                 android:id="@+id/idPullDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +69,9 @@
                 android:text=""
                 app:layout_constraintStart_toStartOf="@id/idImgUser"
                 app:layout_constraintEnd_toEndOf="@id/idImgUser"
-                app:layout_constraintTop_toBottomOf="@id/idImgUser"/>
+                app:layout_constraintTop_toBottomOf="@id/idImgUser"
+                android:textColor="@color/light_blue"
+                android:textStyle="bold"/>
 
 
         </LinearLayout>

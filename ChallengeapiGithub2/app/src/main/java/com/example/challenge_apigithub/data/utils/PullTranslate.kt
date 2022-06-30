@@ -4,20 +4,17 @@ import com.example.challenge_apigithub.data.dto.PullResponse
 
 
 object PullTranslate {
-    fun translatePullToPullItem(pullsList: List<PullResponse>): ArrayList<PullResponse> {
+    fun translatePullsToPullsItem(pullsList: List<PullResponse>): ArrayList<PullResponse> {
         val pullsItemList = ArrayList<PullResponse>()
         pullsList.forEach {
             pullsItemList.add(
-                PullResponse(
-                    it.state,
+                PullResponse(it.state,
                     it.title,
                     it.body,
                     it.htmlUrl,
-                    it.user,
-                    )
+                    it.user)
             )
         }
         return pullsItemList
-
     }
 }

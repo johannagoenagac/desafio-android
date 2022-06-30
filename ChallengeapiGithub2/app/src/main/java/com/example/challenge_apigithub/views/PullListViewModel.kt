@@ -19,8 +19,9 @@ class PullListViewModel (private val repository: GetRepoRepository)
 
         repository.getPull(owner, pullRepository, object: PullResponseListener {
 
-            override fun onPullResponse(response: List<PullResponse>?) {
-                response.also { pull.value = it }
+            override fun onPullResponse(response: List<PullResponse>) {
+                pull.value = response
+
             }
 
             override fun onError(repositoryError: RepositoryError) {

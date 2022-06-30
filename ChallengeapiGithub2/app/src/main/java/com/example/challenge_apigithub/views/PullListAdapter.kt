@@ -16,11 +16,9 @@ class PullListAdapter (private val listener: PullsListActivityListener): Recycle
     }
 
     fun setPullsItems(pullsList: List<PullResponse>) {
-        this.pulls.addAll(PullTranslate.translatePullToPullItem(pullsList))
+        this.pulls.addAll(PullTranslate.translatePullsToPullsItem(pullsList))
         this.notifyDataSetChanged()
     }
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

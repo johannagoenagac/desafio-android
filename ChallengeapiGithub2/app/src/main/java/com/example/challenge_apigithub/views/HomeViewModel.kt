@@ -21,6 +21,7 @@ class HomeViewModel(private val repository: GetRepoRepository)
     fun getRepos(page: Int) {
         repo.value = null
         error.value = null
+
         repository.getRepo(page, object: SearchResponseListener {
             override fun onSearchResponse(response: SearchResponse) {
                 repo.value = response.items
